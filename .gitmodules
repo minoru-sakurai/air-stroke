@@ -1,0 +1,3 @@
+[submodule "submodules/takram-cocoa-cinder"]
+	path = submodules/takram-cocoa-cinder
+	url = git@github.com:takram-design-engineering/takram-cocoa-cinder.git
