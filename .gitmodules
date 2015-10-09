@@ -1,3 +1,6 @@
 [submodule "submodules/takram-cocoa-cinder"]
 	path = submodules/takram-cocoa-cinder
 	url = git@github.com:takram-design-engineering/takram-cocoa-cinder.git
+[submodule "submodules/boost-threadpool"]
+	path = submodules/boost-threadpool
+	url = git@github.com:AlexMarlo/boost-threadpool.git

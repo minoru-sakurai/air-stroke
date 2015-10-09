@@ -26,9 +26,10 @@
 
 
 #import <Cocoa/Cocoa.h>
+#import "takram/cocoa/TDECinderView.h"
 
-@interface Document : NSDocument
+@interface Document : NSDocument <TDECinderViewDelegate>
 
+@property (nonatomic, readonly) TDECinderView *cinderView;
 
 @end
-

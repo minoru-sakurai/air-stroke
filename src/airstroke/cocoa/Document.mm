@@ -26,7 +26,14 @@
 
 #import "Document.h"
 
-@interface Document ()
+#include "airstroke/app/canvas.h"
+
+@interface Document () {
+ @private
+  airstroke::app::Canvas _canvas;
+}
+
+@property (nonatomic, assign) IBOutlet TDECinderView *cinderView;
 
 @end
 
@@ -38,6 +45,13 @@
     // Add your subclass-specific initialization here.
     }
     return self;
+}
+
+- (void)awakeFromNib {
+  [super awakeFromNib];
+
+  [_cinderView setDelegate:self];
+  
 }
 
 - (void)windowControllerDidLoadNib:(NSWindowController *)aController {
@@ -63,6 +77,93 @@
   [NSException raise:@"UnimplementedMethod"
               format:@"%@ is unimplemented", NSStringFromSelector(_cmd)];
   return YES;
+}
+
+
+#pragma mark TDECinderViewDelegate
+
+- (void)cinderViewSetup:(TDECinderView *)cinderView {
+  _canvas.setup();
+}
+
+- (void)cinderViewUpdate:(TDECinderView *)cinderView {
+  _canvas.update();
+}
+
+- (void)cinderViewDraw:(TDECinderView *)cinderView {
+  _canvas.draw();
+}
+
+- (void)cinderView:(TDECinderView *)cinderView
+           reshape:(TDECinderAreaConstRef)viewport {
+  assert(viewport);
+  _canvas.reshape(*TDECinderAreaCast(viewport));
+}
+
+- (void)cinderView:(TDECinderView *)cinderView
+           keyDown:(TDECinderKeyEventRef)event {
+  assert(event);
+  _canvas.keyDown(*TDECinderKeyEventCast(event));
+}
+
+- (void)cinderView:(TDECinderView *)cinderView
+             keyUp:(TDECinderKeyEventRef)event {
+  assert(event);
+  _canvas.keyUp(*TDECinderKeyEventCast(event));
+}
+
+- (void)cinderView:(TDECinderView *)cinderView
+         mouseDown:(TDECinderMouseEventRef)event {
+  assert(event);
+  _canvas.mouseDown(*TDECinderMouseEventCast(event));
+}
+
+- (void)cinderView:(TDECinderView *)cinderView
+           mouseUp:(TDECinderMouseEventRef)event {
+  assert(event);
+  _canvas.mouseUp(*TDECinderMouseEventCast(event));
+}
+
+- (void)cinderView:(TDECinderView *)cinderView
+         mouseDrag:(TDECinderMouseEventRef)event {
+  assert(event);
+  _canvas.mouseDrag(*TDECinderMouseEventCast(event));
+}
+
+- (void)cinderView:(TDECinderView *)cinderView
+         mouseMove:(TDECinderMouseEventRef)event {
+  assert(event);
+  _canvas.mouseMove(*TDECinderMouseEventCast(event));
+}
+
+- (void)cinderView:(TDECinderView *)cinderView
+        mouseWheel:(TDECinderMouseEventRef)event {
+  assert(event);
+  _canvas.mouseWheel(*TDECinderMouseEventCast(event));
+}
+
+- (void)cinderView:(TDECinderView *)cinderView
+      touchesBegin:(TDECinderTouchEventRef)event {
+  assert(event);
+  _canvas.touchesBegin(*TDECinderTouchEventCast(event));
+}
+
+- (void)cinderView:(TDECinderView *)cinderView
+       touchesMove:(TDECinderTouchEventRef)event {
+  assert(event);
+  _canvas.touchesMove(*TDECinderTouchEventCast(event));
+}
+
+- (void)cinderView:(TDECinderView *)cinderView
+        touchesEnd:(TDECinderTouchEventRef)event {
+  assert(event);
+  _canvas.touchesEnd(*TDECinderTouchEventCast(event));
+}
+
+- (void)cinderView:(TDECinderView *)cinderView
+          fileDrop:(TDECinderFileDropEventRef)event {
+  assert(event);
+  _canvas.fileDrop(*TDECinderFileDropEventCast(event));
 }
 
 @end
